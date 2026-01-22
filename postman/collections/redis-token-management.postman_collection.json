@@ -1,0 +1,169 @@
+{
+	"info": {
+		"_postman_id": "a1b2c3d4-e5f6-7890-abcd-ef1234567890",
+		"name": "redis-token-management",
+		"description": "Redis & Spring Security Token Management API\n\nThis collection contains all HTTP endpoints for the redis-token-management Spring Boot application, including authentication endpoints for user registration, login, logout, and JWT token refresh.\n\n**Base URL:** Use the `{{baseUrl}}` variable to configure the server host.",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "Home",
+			"item": [
+				{
+					"name": "Get Home",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{baseUrl}}/",
+							"host": [
+								"{{baseUrl}}"
+							],
+							"path": [
+								""
+							]
+						},
+						"description": "Home endpoint that returns a welcome message.\n\n**Controller:** HomeController\n**Method:** home()\n\n**Response:** Welcome message string"
+					},
+					"response": []
+				}
+			],
+			"description": "Home controller endpoints"
+		},
+		{
+			"name": "Auth",
+			"item": [
+				{
+					"name": "Register New User",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"username\": \"\",\n    \"password\": \"\"\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{baseUrl}}/api/auth/register",
+							"host": [
+								"{{baseUrl}}"
+							],
+							"path": [
+								"api",
+								"auth",
+								"register"
+							]
+						},
+						"description": "Register a new user in the system.\n\n**Controller:** AuthController\n**Method:** registerNewUser(RegisterRequest)\n\n**Request Body:**\n- `username` (string, required): The username for the new user\n- `password` (string, required): The password for the new user\n\n**Response:** AuthenticationResponse containing access and refresh tokens"
+					},
+					"response": []
+				},
+				{
+					"name": "Login",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"username\": \"\",\n    \"password\": \"\"\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{baseUrl}}/api/auth/login",
+							"host": [
+								"{{baseUrl}}"
+							],
+							"path": [
+								"api",
+								"auth",
+								"login"
+							]
+						},
+						"description": "Authenticate an existing user and return JWT tokens.\n\n**Controller:** AuthController\n**Method:** login(LoginRequest)\n\n**Request Body:**\n- `username` (string, required): The username of the user\n- `password` (string, required): The password of the user\n\n**Response:** AuthenticationResponse containing access and refresh tokens"
+					},
+					"response": []
+				},
+				{
+					"name": "Logout",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"url": {
+							"raw": "{{baseUrl}}/api/auth/logout",
+							"host": [
+								"{{baseUrl}}"
+							],
+							"path": [
+								"api",
+								"auth",
+								"logout"
+							]
+						},
+						"description": "Logout the currently authenticated user by removing their tokens from Redis.\n\n**Controller:** AuthController\n**Method:** logout()\n\n**Note:** This endpoint requires authentication. Include the Bearer token in the Authorization header.\n\n**Response:** Success message string"
+					},
+					"response": []
+				},
+				{
+					"name": "Refresh Token",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"refreshToken\": \"\"\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{baseUrl}}/api/auth/refresh",
+							"host": [
+								"{{baseUrl}}"
+							],
+							"path": [
+								"api",
+								"auth",
+								"refresh"
+							]
+						},
+						"description": "Refresh access token using a valid refresh token.\n\n**Controller:** AuthController\n**Method:** refreshToken(RefreshTokenRequest)\n\n**Request Body:**\n- `refreshToken` (string, required): The refresh token obtained during login or registration\n\n**Response:** AuthenticationResponse with new access token"
+					},
+					"response": []
+				}
+			],
+			"description": "Authentication controller endpoints for user registration, login, logout, and token refresh.\n\n**Base Path:** `/api/auth`"
+		}
+	],
+	"variable": [
+		{
+			"key": "baseUrl",
+			"value": "http://localhost:8080",
+			"type": "string"
+		}
+	]
+}
